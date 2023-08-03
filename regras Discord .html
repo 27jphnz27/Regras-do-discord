@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord - Menu</title>
+    <style>
+        /* Estilos para o menu lateral */
+        .menu-container {
+            display: flex;
+            position: relative;
+            background-color: #36393f;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .menu-button {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+        }
+
+        .menu-icon {
+            width: 100%;
+            height: 3px;
+            background-color: #fff;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 10px;
+        }
+
+        .discord-button {
+            display: block;
+            background-color: #7289DA;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .discord-button:hover {
+            background-color: #677BC4;
+        }
+
+        /* Estilos para as postagens */
+        .content {
+            padding: 20px;
+            margin-top: 50px;
+            line-height: 1.6;
+        }
+
+        .post {
+            margin-bottom: 20px;
+        }
+
+        .post h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .post p {
+            font-size: 18px;
+        }
+
+        /* Estilos para o chat de comentários */
+        .comment-section {
+            margin-top: 50px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .comment-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .comment-section label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .comment-section input[type="text"],
+        .comment-section input[type="email"],
+        .comment-section textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .comment-section button {
+            background-color: #7289DA;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .comment-section button:hover {
+            background-color: #677BC4;
+        }
+
+        .comments {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .comment {
+            margin-bottom: 10px;
+        }
+
+        .comment p {
+            margin: 0;
+        }
+
+        .comment small {
+            color: #666;
+        }
+
+        /* Estilos para o bot com aviso */
+        .bot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .bot-balloon {
+            display: none;
+            position: relative;
+            background-color: #fff;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .bot-message {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bot-message-text {
+            font-weight: bold;
+        }
+
+        .bot-close-button {
+            cursor: pointer;
+        }
+
+        /* Estilos para a caixa de cookies */
+        .cookie-box {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .cookie-message {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cookie-text {
+            font-weight: bold;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .cookie-buttons button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Caixa de Cookies -->
+    <div class="cookie-box" id="cookieBox">
+        <div class="cookie-message">
+            <span class="cookie-text">Este site usa cookies para melhorar sua experiência. Aceita os cookies?</span>
+            <div class="cookie-buttons">
+                <button onclick="acceptCookies()">Aceitar</button>
+                <button onclick="rejectCookies()">Recusar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <div class="menu-button" onclick="toggleMenu()">
+            <div class="menu-icon"></div>
+            <div class="menu-icon"></div>
+            <div class="menu-icon"></div>
+        </div>
+        <div class="menu" id="menu">
+            <button class="discord-button" onclick="showContent(1)">Botão 1</button>
+            <button class="discord-button" onclick="showContent(2)">Botão 2</button>
+            <button class="discord-button" onclick="showContent(3)">Botão 3</button>
+        </div>
+    </div>
+    <div class="content">
+        <h1>Regras do Discord</h1>
+
+        <!-- Adicione suas postagens de fotos e texto aqui -->
+
+        <div class="post" id="content1">
+            <h2>Regra de Convivência 1</h2>
+            <p>
+                Respeite a todos os membros da comunidade. Não são toleradas discriminações ou ofensas de qualquer natureza.
+            </p>
+        </div>
+
+        <div class="post" id="content2">
+            <h2>Regra de Convivência 2</h2>
+            <p>
+                Evite spam e mensagens repetitivas. O conteúdo deve ser relevante para o contexto da comunidade.
+            </p>
+        </div>
+
+        <div class="post" id="content3">
+            <h2>Regra de Convivência 3</h2>
+            <p>
+                Mantenha um ambiente amigável e respeitoso. Não promova brigas ou discussões desnecessárias.
+            </p>
+        </div>
+
+        <!-- Chat de comentários -->
+        <div class="comment-section">
+            <h2>Deixe um comentário</h2>
+            <form onsubmit="saveComment(event)">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" required><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required><br>
+
+                <label for="comment">Comentário:</label>
+                <textarea id="comment" required></textarea><br>
+
+                <button type="submit">Enviar</button>
+            </form>
+
+            <div class="comments">
+                <!-- Os comentários serão exibidos aqui -->
+            </div>
+        </div>
+    </div>
+    <div class="bot-container">
+        <div class="bot-balloon" id="botBalloon">
+            <div class="bot-message">
+                <span class="bot-message-text">! ATENÇÃO! LEIA O CONTEÚDO COMPLETO PARA QUE NÃO HAJA DÚVIDAS</span>
+                <span class="bot-close-button" onclick="closeBotBalloon()">X</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            menu.style.display = menu.style.display === "none" ? "block" : "none";
+        }
+
+        function showContent(contentId) {
+            const contentDivs = document.querySelectorAll(".post");
+            for (const div of contentDivs) {
+                div.style.display = "none";
+            }
+
+            const selectedContent = document.getElementById("content" + contentId);
+            selectedContent.style.display = "block";
+        }
+
+        function saveComment(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const comment = document.getElementById("comment").value;
+
+            // Verifica se os campos não estão vazios
+            if (name.trim() === "" || email.trim() === "" || comment.trim() === "") {
+                alert("Por favor, preencha todos os campos antes de enviar o comentário.");
+                return;
+            }
+
+            // Obtém a data atual para registrar o horário do comentário
+            const now = new Date();
+
+            // Cria um objeto com os dados do comentário
+            const commentData = {
+                name: name,
+                email: email,
+                comment: comment,
+                timestamp: now.toISOString() // Converte a data para formato de texto
+            };
+
+            // Obtém os comentários existentes ou inicializa um array vazio
+            let comments = JSON.parse(localStorage.getItem("comments")) || [];
+
+            // Adiciona o novo comentário à lista de comentários
+            comments.push(commentData);
+
+            // Salva a lista atualizada de comentários no armazenamento local
+            localStorage.setItem("comments", JSON.stringify(comments));
+
+            // Exibe o novo comentário na seção de comentários
+            displayComments();
+
+            // Limpa os campos do formulário após o envio do comentário
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("comment").value = "";
+        }
+
+        function displayComments() {
+            const commentsSection = document.querySelector(".comments");
+
+            // Obtém os comentários do armazenamento local ou inicializa um array vazio
+            const comments = JSON.parse(localStorage.getItem("comments")) || [];
+
+            // Gera o HTML para exibir os comentários
+            let commentsHTML = "";
+            for (const comment of comments) {
+                commentsHTML += `
+                    <div class="comment">
+                        <p><strong>${comment.name}</strong> (${comment.email})</p>
+                        <p>${comment.comment}</p>
+                        <small>${comment.timestamp}</small>
+                    </div>
+                `;
+            }
+
+            // Insere os comentários na seção de comentários
+            commentsSection.innerHTML = commentsHTML;
+        }
+
+        function closeBotBalloon() {
+            const botBalloon = document.getElementById("botBalloon");
+            botBalloon.style.display = "none";
+        }
+
+        // Exibe o bot-balloon somente uma vez ao carregar a página
+        document.addEventListener("DOMContentLoaded", function() {
+            const botBalloon = document.getElementById("botBalloon");
+            botBalloon.style.display = "block";
+        });
+
+        // Funções para manipulação dos cookies
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function acceptCookies() {
+            setCookie("cookiesAccepted", "true", 365);
+            const cookieBox = document.getElementById("cookieBox");
+            cookieBox.style.display = "none";
+        }
+
+        function rejectCookies() {
+            setCookie("cookiesAccepted", "false", 365);
+            const cookieBox = document.getElementById("cookieBox");
+            cookieBox.style.display = "none";
+        }
+
+        // Verifica se o usuário já aceitou os cookies
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookiesAccepted = getCookie("cookiesAccepted");
+            const cookieBox = document.getElementById("cookieBox");
+
+            if (!cookiesAccepted) {
+                cookieBox.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
